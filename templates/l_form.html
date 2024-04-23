@@ -1,0 +1,753 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RTO managment system </title>
+ <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+<script type="text/javascript">
+   function validation()
+       {   
+            
+            var regexp=/^[2-9]{1}[0-9]{3}\s{1}[0-9]{4}\s{1}[0-9]{4}$/;
+           
+            var x=document.getElementById("adh_no").value;
+           if(regexp.test(x))
+               {
+                   window.alert("Valid Aadhar no.");
+                   
+               }
+        else{ window.alert("Invalid Aadhar no.");
+              }
+   </script>
+<style type="text/css">
+    
+.form_data{
+    min-height: 2500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form_container{
+
+    position: relative;
+    max-width: 2300px;
+    width:100%;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 15px ;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0,0,0,2.16);
+    height: 2390px;
+}
+.categorys_container{
+
+    position: relative;
+    max-width: 1500px;
+    width:90%;
+    border-radius: 6px;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0,0,0,2.16);
+    height: auto;
+    margin-left: 70px;
+}
+.form_container header{
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+.form_container header::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 27px;
+    border-radius: 8px;
+    background-color:var(--primary); ;
+}
+.form_container form{
+    position: relative;
+    margin-top: 16px;
+    min-height: 1200px;
+    background-color: #fff;
+
+}
+.form_container form .form{
+    position: absolute;
+    background-color: #fff;
+    transition: 0.3s ease;
+}
+.form_container form .form.second{
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+}
+form.secActive .form.second{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+form.secActive .form.first{
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%);
+}
+.form_container form .title{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
+}
+.form_container form .fields{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+form .fields .input-field{
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.input-field label{
+    font-size: 12px;
+    font-weight: 500;
+    color: #2e2e2e;
+}
+.input-field input, select{
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 42px;
+    margin: 8px 0;
+}
+.input-field input :focus,
+.input-field select:focus{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.input-field select,
+.input-field input[type="date"]{
+    color: #707070;
+}
+.input-field input[type="date"]:valid{
+    color: #333;
+}
+.input-field input[type="radio"]{
+    width: 50px;
+    margin-left: 80px;
+    height: 20px;
+}
+.form_container form button, .backBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    margin: 25px 20px;
+    background-color: var(--primary);
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+.form_container form .btnText{
+    font-size: 14px;
+    font-weight: 400;
+}
+form button:hover{
+    background-color: #265df2;
+}
+form button i,
+form .backBtn i{
+    margin: 0 6px;
+}
+form .backBtn i{
+    transform: rotate(180deg);
+}
+form .buttons{
+    display: flex;
+    align-items: center;
+}
+form .buttons button , .backBtn{
+    margin-right: 14px;
+}
+
+@media (max-width: 750px) {
+    .form_container form{
+        overflow-y: scroll;
+    }
+    .form_container form::-webkit-scrollbar{
+       display: none;
+    }
+    form .fields .input-field{
+        width: calc(100% / 2 - 15px);
+    }
+}
+
+@media (max-width: 550px) {
+    form .fields .input-field{
+        width: 100%;
+    }
+}
+.button_data{
+  display: flex;
+  padding: 20px;
+  margin-left: 320px;
+}
+</style>
+    
+</head>
+<body>
+
+<header class="header_section" style="background-color: #181d38;">
+      <div class="header_top">
+        <div class="container-fluid header_top_container">
+
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Location
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                Call : +01 123455678990
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                demo@gmail.com
+              </span>
+            </a>
+          </div>  
+          <div class="social_box">
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-facebook-f"></i></a>
+            <a href=""><i class="fab fa-youtube"></i></a>
+            <a href=""><i class="fab fa-linkedin-in"></i></a>
+          </div>
+           
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand " href="index.html"> RTO OFFICE </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav  ">
+              <li class="nav-item active">
+                  <a class="nav-link" href="http://127.0.0.1:8000/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="category">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="guid"> Guidelines </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about"> About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>
+                      Login
+                    </span>
+                  </a>
+                </li>
+                <form class="form-inline justify-content-center">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="form_data">
+    <div class="form_container">
+        <header>Registration</header>
+
+        <form action="l_form" method="POST" >
+             {% csrf_token %}
+ 
+            <div class="form first">
+                <div class="details personal">
+                  <span class="title" style="color: red">*All data must be Fill Perfectly</span>
+                    
+                    <span class="title">Select RTO Office from where LL is being applied</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>State</label>
+                            <select  name="rto_state">
+                                <option value="Gujrata" selected required="required">Gujrata</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>RTO Office</label>
+                            <select  name="rto_office">
+                                <option disabled selected required="required">Select office</option>
+                                <optgroup label="Ahemdabad" >
+                                    <option value="B/H,KHARIKAT CANAL, NR NEW RTO, VASTRAL, AHMEDABAD">B/H,KHARIKAT CANAL, NR NEW RTO, VASTRAL, AHMEDABAD</option>
+                                    <option value="WES, AHMEDABAD">WES, AHMEDABAD</option>
+                                </optgroup>  
+                                <optgroup label="Surat">
+                                    <option value="B/H,KHARIKAT CANAL, NR NEW RTO, VASTRAL, Surat">B/H,KHARIKAT CANAL, NR NEW RTO, VASTRAL, Surat</option>
+                                    <option value="WES, AHMEDABAD">WES, AHMEDABAD</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                         <div class="input-field" >
+                            <label>Pin code</label>
+                            <input type="text" placeholder="Enter your pin code number" name="rto_pincode"  maxlength="6" required="required">
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="details personal">
+                    <span class="title">Personal Details</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your name"  name="f_name" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>Father Name</label>
+                            <input type="text" placeholder="Enter your name"  name="fathername" required="required">
+                        </div>
+                         <div class="input-field">
+                            <label>Mother Name</label>
+                            <input type="text" placeholder="Enter your name"  name="mothername" required="required">
+                        </div>
+                         <div class="input-field">
+                            <label>
+                        Aadhaar Number: <input type="button" id="btnSubmit" value="check valid or not"  onclick="validation()" style="width: 150px; height: 20px; border:none; color: red" />
+                        </label>
+                            
+                    <input type="text" id="txtAadhaar"  name="adh_no" required="required"/>
+                    <span id="lblError" class="error" style="color: red; font-weight: bold;"></span>
+                    <hr/>
+                        </div>
+                        <div class="input-field">
+                            <label>Date of Birth</label>
+                            <input type="date" placeholder="Enter birth date" name="dob" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>Birth Palce</label>
+                            <input type="text" placeholder="Enter your Birth Palce" name="b_p" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" placeholder="Enter your email" name="email" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Mobile Number</label>
+                            <input type="tel" placeholder="Enter mobile number"  name="m_no" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Gender</label>
+                            <select  name="gender" required="required">
+                                <option disabled selected>Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Others</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Relation</label>
+                            <select  name="relation" required="required">
+                                <option disabled selected>Select</option>
+                                <option value="father">Father</option>
+                                <option value="mother">Mother</option>
+                                <option value="husband">Husband</option>
+                                <option value="guradian">Guradian</option>
+                            </select>
+                        </div>
+                         <div class="input-field">
+                            <label>Age</label>
+                            <input type="text" placeholder="Enter your Age"  name="age" required="required">
+                        </div>
+                         <div class="input-field">
+                            <label>Qualification</label>
+                            <input type="text" placeholder="Enter your Qualification"  name="qualification" required="required">
+                        </div>
+                           <div class="input-field">
+                            <label>Blood Group</label>
+                            <input type="text" placeholder="Enter your Blood Group"  name="blood_group" required="required">
+                        </div>
+                        
+                           <div class="input-field">
+                            <label>Alternate Mobile Number</label>
+                            <input type="text" placeholder="Enter your Alternate Mobile Number"  name="a_m_no" required="required">
+                        </div>    
+                        <div class="input-field">
+                            <label>Occupation</label>
+                            <input type="text" placeholder="Enter your ccupation"  name="occupation" required="required">
+                        </div> 
+                        <div class="input-field">
+                            <label>Country</label>
+                            <input type="text" placeholder="Enter your Country"  name="country" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>State</label>
+                            <input type="text" placeholder="Enter your ccupation"  name="state" required="required"> 
+                        </div>
+                        <div class="input-field">
+                            <label>City</label>
+                            <input type="text" placeholder="Enter your City"  name="city" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>Address</label>
+                            <input type="text" placeholder="Enter your Address"  name="address" required="required">
+                        </div>
+                        <div class="input-field">
+                            <label>Pin-Code</label>
+                            <input type="text" placeholder="Enter your pin-code"  name="pincode" required="required">
+                        </div>
+                     
+                    </div>
+                </div>
+                  <div class="details ID">
+                    <span class="title">Identity Details</span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Issued State</label>
+                            <input type="text" placeholder="Enter issued state"  name="issue_state" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued Date</label>
+                            <input type="date" placeholder="Enter your issued date"  name="issue_date" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Expiry Date</label>
+                            <input type="date" placeholder="Enter expiry date"  name="expir_date" required="required">
+                </div>
+
+                    </div>
+                </div> 
+                <div class="details personal" style="border: 1px solid #000000; border-radius: 20px; padding: 10px">
+                    <span class="title">Self-Declreastion</span>
+                       <span class="title" style="color: red; text-transform: uppercase; font-family: cursive;">Note: if you have any disabletity then yes</span>
+
+                    <div class="fields" >
+                        
+                        <div class="input-field" style="margin-left: 290px; " required="required">
+                            <label>Disibility(YES/NO)</label>
+                            YES
+                       <input type="radio" name="d" value="yes" >
+                      NO <input type="radio" name="d" value="no" >
+                       
+                            
+                            </div>
+                        <div class="input-field" >
+                            <label>Disability</label> 
+                            <select  name="disbility" required="required">
+                                <option disabled selected>Select</option>
+                                <option value="Yes">Yes</option>
+                                <optgroup label=" Disabilitys">
+                                   <option value="Physical">Physical</option>
+                                    <optgroup label=" Physical">
+                                        <option value="Hearing Disability">Hearing Disability</option>
+                                        <option value="Visual Disability">Visual Disability</option>
+                                        <option value="Speech and Language Disability">Speech and Language Disability</option>
+                                    </optgroup>
+                                    <option value="Mental">Mental</option>
+                                    <option value="Blood Disorder">Blood Disorder</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                                <option value="No">No</option>
+                            </select>
+
+                        </div>
+                     
+                     <div required="required">   
+                            1. I am Willing to donate my organs, in case of accidental death?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+                             YES
+                       <input type="radio" name="organs" value="yes" >
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO <input type="radio" name="organs" value="no" >
+                        </div>
+                     <div required="required">   
+                            2. I here by declare that to the best of my knowledge and belief the particulars given above are true &nbsp;
+                            <input type="checkbox" name="data" value="data" >
+                        </div>
+                   
+                    </div>
+                </div>
+
+                <div class="details ID">
+                    <span class="title" style="margin-top: 50px; font-weight: bold; font-size: 20px">Upload Documents</span>
+                        
+                    <div class="fields" style="border : 1px dashed #000000; border-radius: 10px; margin-top: 30px;padding: 15px">
+                        
+                        <div class="input-field">
+                           <label>Photo Upload</label>
+                            <input type="file"  name="d_1_2" required="required">
+                        </div>
+                        <div class="input-field">
+                           <label>Sign Upload</label>
+                            <input type="file"  name="d_1_3" required="required">
+                        </div>
+                    </div>
+
+                    <div class="fields" style="border : 1px dashed #000000; border-radius: 10px;padding: 15px;margin-top: 30px;">
+                        <div class="input-field">
+                            <label>Document</label>
+                            <select  name="document_1" required="required">
+                                <option disabled selected>Select type</option>
+                                <option value="Adhar Card">Adhar Card</option>
+                                <option value="Voter ID Card">Voter ID Card</option>
+                                <option value="School_LC">School_LC</option>
+                                <option value="DOB">DOB</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>proof</label>
+                            <select  name="proof" required="required">
+                                <option disabled selected>Select</option>
+                                <option value="Address">Address</option>
+                                <option value="DOB">DOB</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Doc_no</label>
+                            <input type="text" placeholder="Enter your Documnet Number "  name="d_no" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued Date</label>
+                            <input type="date" placeholder="Enter your issued date"  name="d_issue_date" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued by</label>
+                            <input type="text" placeholder="Enter Issued by "  name="issued_by" required="required">
+                        </div>
+                        <div class="input-field">
+                           
+                            <input type="file"  name="d_1" required="required">
+                        </div>
+                    </div>
+                      
+                    <div class="fields" style="border : 1px dashed #000000; border-radius: 10px; margin-top: 30px;padding: 15px">
+                        <div class="input-field">
+                            <label>Document</label>
+                            <select  name="document_2" required="required">
+                                <option disabled selected>Select type</option>
+                                <option value="Adhar Card">Adhar Card</option>
+                                <option value="Voter ID Card">Voter ID Card</option>
+                                <option value="School_LC">School_LC</option>
+                                <option value="DOB">DOB</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>proof</label>
+                            <select  name="proof_2" required="required">
+                                <option disabled selected>Select</option>
+                                <option value="Address">Address</option>
+                                <option value="DOB">DOB</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Doc_no</label>
+                            <input type="text" placeholder="Enter your Documnet Number "  name="d_no_2" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued Date</label>
+                            <input type="date" placeholder="Enter your issued date"  name="d_issue_date_2" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued by</label>
+                            <input type="text" placeholder="Enter Issued by "  name="issued_by_2"required="required">
+                        </div>
+                        <div class="input-field">
+                           
+                            <input type="file"  name="d_1_2" required="required">
+                        </div>
+                    </div>
+
+                   
+                    <div class="fields" style="border : 1px dashed #000000; border-radius: 10px; margin-top: 30px;padding: 15px">
+                        <div class="input-field">
+                            <label>Document</label>
+                            <select  name="document_2" required="required">
+                                <option disabled selected>Select type</option>
+                                <option value="Adhar Card">Adhar Card</option>
+                                <option value="Voter ID Card">Voter ID Card</option>
+                                <option value="School_LC">School_LC</option>
+                                <option value="DOB">DOB</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>proof</label>
+                            <select  name="proof_2" required="required">
+                                <option disabled selected>Select</option>
+                                <option value="Address">Address</option>
+                                <option value="DOB">DOB</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Doc_no</label>
+                            <input type="text" placeholder="Enter your Documnet Number "  name="d_no_2" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued Date</label>
+                            <input type="date" placeholder="Enter your issued date"  name="d_issue_date_2" required="required">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Issued by</label>
+                            <input type="text" placeholder="Enter Issued by "  name="issued_by_2" required="required">
+                        </div>
+                        <div class="input-field">
+                           
+                            <input type="file"  name="d_1_2" required="required">
+                        </div>
+                    </div>
+                </div> 
+          <div class="button_data" >
+                      <button class="nextBtn" name="submit" type="submit">
+                        <span class="btnText">Next</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                    <button class="backBtn"  name="reset" type="reset">
+                        <span class="btnText">Previus</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div> 
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">FAQs & Help</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+        <!--         <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <i class='fas fa-motorcycle' style='font-size:48px;color:blue'></i>
+                         
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-3 col-md-6" style="text-align: right;margin-right: -80px">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

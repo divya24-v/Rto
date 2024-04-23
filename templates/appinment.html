@@ -1,0 +1,886 @@
+ {% load static %}
+
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0">
+<title>RTO managment system </title>
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+ <script type="text/javascript">
+         function red_l_m() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btnText = document.getElementById("myBtn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = "Read more"; 
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = "Read less"; 
+    moreText.style.display = "inline";
+  }
+}
+
+   </script>
+   <style type="text/css">
+	/* styles.css */
+.form_data{
+    min-height: 2500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* General styling for the entire page */
+body {
+	font-family: Arial, sans-serif;
+	background-color: white;
+	margin: 0;
+}
+
+.wrapper {
+	max-width: 1100px;
+	margin: 15px auto;
+}
+
+/* Calendar container */
+.container-calendar {
+	background: #ffffff;
+	padding: 15px;
+	max-width: 900px;
+	margin: 0 auto;
+	overflow: auto;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Event section styling */
+#event-section {
+	padding: 10px;
+	background: #f5f5f5;
+	margin: 20px 0;
+	border: 1px solid #ccc;
+
+}
+
+.container-calendar #left h1 {
+	color: var(--primary);
+	text-align: center;
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 10px 0;
+}
+
+#event-section h3 {
+	color: var(--primary);
+	font-size: 18px;
+	margin: 0;
+}
+
+#event-section input[type="date"],
+#event-section input[type="text"] {
+	margin: 10px 0;
+	padding: 5px;
+	width: 80%;
+	font-size: 20px;
+}
+
+#event-section button {
+	background: var(--primary);
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.event-marker {
+	position: relative;
+}
+
+.event-marker::after {
+	content: '';
+	display: block;
+	width: 6px;
+	height: 6px;
+	background-color: red;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+/* event tooltip styling */
+.event-tooltip {
+	position: absolute;
+	background-color: rgba(234, 232, 232, 0.763);
+	color: black;
+	padding: 10px;
+	border-radius: 4px;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+	transition: all 0.3s;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.event-marker:hover .event-tooltip {
+	display: block;
+}
+
+/* Reminder section styling */
+#reminder-section {
+	padding: 10px;
+	background: #f5f5f5;
+	margin: 20px 0;
+	border: 1px solid #ccc;
+}
+
+#reminder-section h3 {
+	color: var(--primary);
+	font-size: 18px;
+	margin: 0;
+}
+
+#reminderList {
+	list-style: none;
+	padding: 0;
+}
+
+#reminderList li {
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+/* Style for the delete buttons */
+.delete-event {
+	background: rgb(237, 19, 19);
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin-left: 10px;
+	align-items: right;
+}
+
+/* Buttons in the calendar */
+.button-container-calendar button {
+	cursor: pointer;
+	background: var(--primary);
+	color: #fff;
+	border: 1px solid green;
+	border-radius: 4px;
+	padding: 5px 10px;
+}
+
+/* Calendar table */
+.table-calendar {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table-calendar td,
+.table-calendar th {
+	padding: 5px;
+	border: 1px solid #e2e2e2;
+	text-align: center;
+	vertical-align: top;
+}
+
+/* Date picker */
+.date-picker.selected {
+	background-color: #f2f2f2;
+	font-weight: bold;
+	outline: 1px dashed #00BCD4;
+}
+
+.date-picker.selected span {
+	border-bottom: 2px solid currentColor;
+}
+
+/* Day-specific styling */
+.date-picker:nth-child(1) {
+	color: red;
+	/* Sunday */
+}
+
+.date-picker:nth-child(6) {
+	color: var(--primary);
+	/* Friday */
+}
+
+/* Hover effect for date cells */
+.date-picker:hover {
+	background-color: var(--primary);
+	color: white;
+	cursor: pointer;
+}
+
+/* Header for month and year */
+#monthAndYear {
+	text-align: center;
+	margin-top: 0;
+}
+
+/* Navigation buttons */
+.button-container-calendar {
+	position: relative;
+	margin-bottom: 1em;
+	overflow: hidden;
+	clear: both;
+}
+
+#previous {
+	float: left;
+}
+
+#next {
+	float: right;
+}
+
+/* Footer styling */
+.footer-container-calendar {
+	margin-top: 1em;
+	border-top: 1px solid #dadada;
+	padding: 10px 0;
+}
+
+.footer-container-calendar select {
+	cursor: pointer;
+	background: #ffffff;
+	color: #585858;
+	border: 1px solid #bfc5c5;
+	border-radius: 3px;
+	padding: 5px 1em;
+}
+.form_container{
+
+    position: relative;
+    max-width: 1200px;
+    width:100%;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 25px 15px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0,0,0,2.16);
+    height: 600px;
+    margin-left: 80px;
+}
+.inputf{
+position: relative;
+cursor: text;
+font-size: 14px;
+line-height: 20px;
+padding: 0 16px;
+height: 48px;
+background-color: #fff;
+border: 1px solid #d6d6e7;
+border-radius: 3px;
+color: rgb(35, 38, 59);
+box-shadow: inset 0 1px 4px 0 rgb(119 122 175 / 30%);
+overflow: hidden;
+transition: all 100ms ease-in-out;
+:focus {
+border-color: #3c4fe0;
+box-shadow: 0 1px 0 0 rgb(35 38 59 / 5%);
+                
+}
+
+/* CSS */
+.but {
+  align-items: center;
+  appearance: button;
+  background-color: #0276FF;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0s.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue",sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.but:active {
+  background-color: #006AE8;
+}
+
+.but:hover {
+  background-color: #1C84FF;
+}
+}
+</style>
+	<title>Dynamic Calendar</title>
+
+</head>
+
+<body>
+	<!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+<header class="header_section" style="background-color: #181d38;">
+      <div class="header_top">
+        <div class="container-fluid header_top_container">
+
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Location
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                Call : +01 123455678990
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                demo@gmail.com
+              </span>
+            </a>
+            </div>  
+          <div class="social_box">
+            <a href=""><i class="fab fa-facebook-f"></i></a>
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-linkedin-in"></i></a>
+            <a href=""><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand " href="http://127.0.0.1:8000/"> RTO OFFICE </a>
+
+            <a class="nav-link " href="http://127.0.0.1:8000/" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff; text-transform: uppercase;">
+        <u>{{user}}</u>
+      </a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="http://127.0.0.1:8000/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="category">Services</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="guid"> Guidelines </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about"> About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'logout' %} ">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>
+                      LogOut
+                    </span>
+                  </a>
+                </li>
+                <form class="form-inline justify-content-center">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navbar Start -->
+    <!-- Main wrapper for the calendar application -->
+	<div class="form_container"><div class="wrapper">
+		<div class="container-calendar">
+			<div id="left">
+				<h1>Slot BOOKING</h1>
+				<div id="event-section">
+					<h3>Book Slot</h3>
+					<input type="date" id="eventDate" class="inputf">
+					<select  style="font-size:20px; width: 457px;" class="inputf">
+						<optgroup label="Slot_Timeing">
+								<option disabled read-only selected> Select Time</option>
+								<option>10:30 AM TO 11:30 AM</option>
+								<option>10:30 AM TO 11:30 AM</option>
+								<option>11:30 AM TO 12:30 AM</option>
+								<option>02:00 PM TO 03:00 PM</option>
+								<option>03:00 AM TO 04:00 AM</option>
+								<option>04:00 AM TO 05:00 AM</option>
+								<option>05:00 PM TO 06:00 PM</option>
+						</optgroup>
+				
+					</select>
+					<input type="text"
+						id="eventTitle"
+						placeholder="Event Title" class="inputf">
+					<input type="text"
+						id="eventDescription"
+						placeholder="Event Description" class="inputf">
+					<button id="addEvent" onclick="addEvent()" class="but">
+						Add
+					</button>
+				</div>
+				<div id="reminder-section">
+					<h3>Reminders</h3>
+					<!-- List to display reminders -->
+					<ul id="reminderList">
+						<li data-event-id="1">
+							<strong>Event Title</strong>
+							- Event Description on Event Date
+							<button class="delete-event"
+								onclick="deleteEvent(1)">
+								Delete
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="right">
+				<h3 id="monthAndYear"></h3>
+				<div class="button-container-calendar">
+					<button id="previous"
+							onclick="previous()">
+						‹
+					</button>
+					<button id="next"
+							onclick="next()">
+						›
+					</button>
+				</div>
+				<table class="table-calendar"
+					id="calendar"
+					data-lang="en">
+					<thead id="thead-month"></thead>
+					<!-- Table body for displaying the calendar -->
+					<tbody id="calendar-body"></tbody>
+				</table>
+				<div class="footer-container-calendar">
+					<label for="month">Jump To: </label>
+					<!-- Dropdowns to select a specific month and year -->
+					<select id="month" onchange="jump()">
+						<option value=0>Jan</option>
+						<option value=1>Feb</option>
+						<option value=2>Mar</option>
+						<option value=3>Apr</option>
+						<option value=4>May</option>
+						<option value=5>Jun</option>
+						<option value=6>Jul</option>
+						<option value=7>Aug</option>
+						<option value=8>Sep</option>
+						<option value=9>Oct</option>
+						<option value=10>Nov</option>
+						<option value=11>Dec</option>
+					</select>
+					<!-- Dropdown to select a specific year -->
+					<select id="year" onchange="jump()"></select>
+				</div>
+				<div class="footer-container-calendar" >
+					<form name="f1">
+				
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <a class="btn btn-link" href="">About Us</a>
+                    <a class="btn btn-link" href="">Contact Us</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="">FAQs & Help</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+        <!--         <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <i class='fas fa-motorcycle' style='font-size:48px;color:blue'></i>
+                         
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-3 col-md-6" style="text-align: right;margin-right: -80px">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+	<!-- Include the JavaScript file for the calendar functionality -->
+<script type="text/javascript">
+	// script.js
+
+// Define an array to store events
+let events = [];
+
+// letiables to store event input fields and reminder list
+let eventDateInput = document.getElementById("eventDate");
+let eventTimeInput = document.querySelector("select");
+
+
+let eventTitleInput =
+	document.getElementById("eventTitle");
+let eventDescriptionInput =
+	document.getElementById("eventDescription");
+let reminderList =
+	document.getElementById("reminderList");
+
+// Counter to generate unique event IDs
+let eventIdCounter = 1;
+
+
+// Function to add events
+function addEvent() {
+	let date = eventDateInput.value;
+	let time = eventTimeInput.options[eventTimeInput.selectedIndex].text;
+
+	let title = eventTitleInput.value;
+	let description = eventDescriptionInput.value;
+
+	if (date && title) {
+		// Create a unique event ID
+		let eventId = eventIdCounter++;
+
+		events.push(
+			{
+				id: eventId, date: date,
+				time : time,
+				title: title,
+				description: description
+			}
+		);
+		showCalendar(currentMonth, currentYear);
+		eventDateInput.value = "";
+		eventTimeInput.selectedIndex = 0;
+		eventTitleInput.value = "";
+		eventDescriptionInput.value = "";
+		displayReminders();
+	}
+}
+
+// Function to delete an event by ID
+function deleteEvent(eventId) {
+	// Find the index of the event with the given ID
+	let eventIndex =
+		events.findIndex((event) =>
+			event.id === eventId);
+
+	if (eventIndex !== -1) {
+		// Remove the event from the events array
+		events.splice(eventIndex, 1);
+		showCalendar(currentMonth, currentYear);
+		displayReminders();
+	}
+}
+
+// Function to display reminders
+function displayReminders() {
+	reminderList.innerHTML = "";
+	for (let i = 0; i < events.length; i++) {
+		let event = events[i];
+		let eventDate = new Date(event.date);
+
+		if (eventDate.getMonth() ===
+			currentMonth &&
+			eventDate.getFullYear() ===
+			currentYear) {
+			let listItem = document.createElement("li");
+			listItem.innerHTML =
+				`<strong>${event.title}</strong> - 
+			${event.description} on 
+			${eventDate.toLocaleDateString()} and ${event.time}`;
+
+			// Add a delete button for each reminder item
+			let deleteButton =
+				document.createElement("button");
+			deleteButton.className = "delete-event";
+			deleteButton.textContent = "Delete";
+			deleteButton.onclick = function () {
+				deleteEvent(event.id);
+			};
+			listItem.appendChild(deleteButton);
+			reminderList.appendChild(listItem);
+		}
+	}
+}
+
+// Function to generate a range of 
+// years for the year select input
+function generate_year_range(start, end) {
+	let years = "";
+	for (let year = start; year <= end; year++) {
+		years += "<option value='" +
+			year + "'>" + year + "</option>";
+	}
+	return years;
+}
+
+// Initialize date-related letiables
+today = new Date();
+currentMonth = today.getMonth();
+currentYear = today.getFullYear();
+selectYear = document.getElementById("year");
+selectMonth = document.getElementById("month");
+
+createYear = generate_year_range(1970, 2050);
+
+document.getElementById("year").innerHTML = createYear;
+
+let calendar = document.getElementById("calendar");
+
+let months = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
+];
+let days = [
+	"Sun", "Mon", "Tue", "Wed",
+	"Thu", "Fri", "Sat"];
+
+$dataHead = "<tr>";
+for (dhead in days) {
+	$dataHead += "<th data-days='" +
+		days[dhead] + "'>" +
+		days[dhead] + "</th>";
+}
+$dataHead += "</tr>";
+
+document.getElementById("thead-month").innerHTML = $dataHead;
+
+monthAndYear =
+	document.getElementById("monthAndYear");
+showCalendar(currentMonth, currentYear);
+
+// Function to navigate to the next month
+function next() {
+	currentYear = currentMonth === 11 ?
+		currentYear + 1 : currentYear;
+	currentMonth = (currentMonth + 1) % 12;
+	showCalendar(currentMonth, currentYear);
+}
+
+// Function to navigate to the previous month
+function previous() {
+	currentYear = currentMonth === 0 ?
+		currentYear - 1 : currentYear;
+	currentMonth = currentMonth === 0 ?
+		11 : currentMonth - 1;
+	showCalendar(currentMonth, currentYear);
+}
+
+// Function to jump to a specific month and year
+function jump() {
+	currentYear = parseInt(selectYear.value);
+	currentMonth = parseInt(selectMonth.value);
+	showCalendar(currentMonth, currentYear);
+}
+
+// Function to display the calendar
+function showCalendar(month, year) {
+	let firstDay = new Date(year, month, 1).getDay();
+	tbl = document.getElementById("calendar-body");
+	tbl.innerHTML = "";
+	monthAndYear.innerHTML = months[month] + " " + year;
+	selectYear.value = year;
+	selectMonth.value = month;
+
+	let date = 1;
+	for (let i = 0; i < 6; i++) {
+		let row = document.createElement("tr");
+		for (let j = 0; j < 7; j++) {
+			if (i === 0 && j < firstDay) {
+				cell = document.createElement("td");
+				cellText = document.createTextNode("");
+				cell.appendChild(cellText);
+				row.appendChild(cell);
+			} else if (date > daysInMonth(month, year)) {
+				break;
+			} else {
+				cell = document.createElement("td");
+				cell.setAttribute("data-date", date);
+				cell.setAttribute("data-month", month + 1);
+				cell.setAttribute("data-year", year);
+				cell.setAttribute("data-month_name", months[month]);
+				cell.className = "date-picker";
+				cell.innerHTML = "<span>" + date + "</span";
+
+				if (
+					date === today.getDate() &&
+					year === today.getFullYear() &&
+					month === today.getMonth()
+				) {
+					cell.className = "date-picker selected";
+				}
+
+				// Check if there are events on this date
+				if (hasEventOnDate(date, month, year)) {
+					cell.classList.add("event-marker");
+					cell.appendChild(
+						createEventTooltip(date, month, year)
+				);
+				}
+
+				row.appendChild(cell);
+				date++;
+			}
+		}
+		tbl.appendChild(row);
+	}
+
+	displayReminders();
+}
+
+// Function to create an event tooltip
+function createEventTooltip(date, month, year) {
+	let tooltip = document.createElement("div");
+	tooltip.className = "event-tooltip";
+	let eventsOnDate = getEventsOnDate(date, month, year);
+	for (let i = 0; i < eventsOnDate.length; i++) {
+		let event = eventsOnDate[i];
+		let eventDate = new Date(event.date);
+		let eventText = `<strong>${event.title}</strong> - 
+			${event.description} on 
+			${eventDate.toLocaleDateString()}`;
+		let eventElement = document.createElement("p");
+		eventElement.innerHTML = eventText;
+		tooltip.appendChild(eventElement);
+	}
+	return tooltip;
+}
+
+// Function to get events on a specific date
+function getEventsOnDate(date, month, year) {
+	return events.filter(function (event) {
+		let eventDate = new Date(event.date);
+		return (
+			eventDate.getDate() === date &&
+			eventDate.getMonth() === month &&
+			eventDate.getFullYear() === year
+		);
+	});
+}
+
+// Function to check if there are events on a specific date
+function hasEventOnDate(date, month, year) {
+	return getEventsOnDate(date, month, year).length > 0;
+}
+
+// Function to get the number of days in a month
+function daysInMonth(iMonth, iYear) {
+	return 32 - new Date(iYear, iMonth, 32).getDate();
+}
+
+// Call the showCalendar function initially to display the calendar
+showCalendar(currentMonth, currentYear);
+
+</script>
+
+</body>
+
+</html>
